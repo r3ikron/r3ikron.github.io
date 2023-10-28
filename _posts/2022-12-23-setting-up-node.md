@@ -5,36 +5,58 @@ date:   2022-12-28 06:44:00 +0200
 categories: jekyll update
 ---
 
-_npm_
+## Introduction
+
+This guide walks you through setting up a Node.js and Angular development environment. We'll also touch upon database setup, configuration, and other essential tasks.
+
+## NPM Configuration
+
+Before starting, it's a good idea to configure npm with your personal information. This will be used to populate the package.json file in your future projects.
+
 ```
 npm config set init-author-name "username" -g
 npm config set init-author-url "https://github.com/username" -g
 npm config set init-license "MIT" -g
 ```
 
-_git_
-```
+## Git Configuration
+
+You'll also want to set up Git with your information and preferred settings.
+
+```bash
 git config --global init.defaultBranch main
 git config --global user.email "email"
 git config --global user.name "username"
 ```
 
-```
+Once your local project is ready, you can link it with a remote repository as follows:
+
+```bash
 git remote add origin https://github.com/username/REPOSITORY.git
 git branch -M main
 git push -u origin main
 ```
 
-```
+Angular CLI Installation
+
+Next, we'll install the Angular CLI, which provides a powerful set of tools for Angular development.
+
+```bash
 npm install -g @angular/cli
 ```
 
-```
+You can then create a new Angular project:
+
+```bash
 ng new todo-app --routing --style=scss --skip-tests
 cd todo-app
 ```
 
-```
+## Project Directory Structure
+
+We'll organize our project by creating several directories for different types of files:
+
+```bash
 mkdir data
 mkdir data/db
 touch data/db/.gitkeep
@@ -51,15 +73,22 @@ mkdir test
 touch test/.gitkeep
 ```
 
-_.gitignore_
+## Git Ignore File
 
-```
+To ignore some generated files or folders, create a `.gitignore` file with the following entries:
+
+```bash
 /data/db
 /data/files
 ```
+
+## Proxy Configuration
+
+To set up a proxy for your API calls during development, create a proxy.conf.json file:
+
 _proxy.conf.json_
 
-```
+```json
 {
   "/api": {
     "target": "http://localhost:3000",
@@ -71,20 +100,24 @@ _proxy.conf.json_
 }
 ```
 
-_angular.json_
-```
+And update your Angular JSON file to use this proxy during development:
+
+```json
   "architect": {
     "serve": {
       "builder": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "your-application-name:build",
         "proxyConfig": "src/proxy.conf.json"
       },
 ```
 
-_knexfile.js_
+## Database Configuration with Knex
 
-```
+Knex is a powerful query builder for Postgres, MySQL, and other databases. We will be using it to manage our database operations.
+
+Create a `knexfile.js` in your project root:
+
+```javascript
 const path = require("path");
 
 module.exports = {
@@ -132,9 +165,9 @@ module.exports = {
 }
 ```
 
-_api/db.js_
+And a `db.js` file inside your api folder:
 
-```
+```javascript
 const Knex = require("knex");
 
 const config = require("../knexfile.js");
@@ -154,19 +187,18 @@ const env = process.env['NODE_ENV'] || "development";
 module.exports = Knex(config[env]);
 ```
 
-```
+## Back-end Setup with Express
+
+We'll set up an Express server to handle our backend logic. Install the required packages first:
+
+```bash
 npm install --save express body-parser cookie-parser express-session connect-session-knex pg bootstrap validator
 npm install --save-dev sqlite3 nodemon concurrently
 ```
 
-```
-const { Router } = require("express");
-const router = module.exports = Router();
-```
+Create an api/main.js file to initiate your Express server:
 
- _api/main.js_
-
-```
+```javascript
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -212,31 +244,18 @@ app.use("/api/", routes);
 app.listen(PORT, () => console.log(`http://localhost:${PORT} in ${app.get("env")} mode`));
 ```
 
-_styles.scss_
+Create an api/routes.js file for your api calls:
 
-```
-@import '~bootstrap/dist/css/bootstrap.min.css';
-```
-
-_angular.json_
-
-```
-"scripts": [
-  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-  "node_modules/validator/validator.min.js"
-]
+```javascript
+const { Router } = require("express");
+const router = module.exports = Router();
 ```
 
-_src/app/app.component.ts_
+## Front-end Setup with Angular
 
-```
-template: `<router-outlet></router-outlet>`,
-styles: []
-```
+First, add the Angular HTTP client module to make HTTP requests.
 
-_src/app/app.module.ts_
-
-```
+```typescript
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -246,7 +265,31 @@ import { HttpClientModule } from '@angular/common/http';
 })
 ```
 
-_nodemon.json_
+For styles, you can import Bootstrap in your `styles.scss`:
+_styles.scss_
+
+```scss
+@import '~bootstrap/dist/css/bootstrap.min.css';
+```
+
+Adding external javaScript libraries to angular
+
+```json
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+  "node_modules/validator/validator.min.js"
+]
+```
+
+In an Angular application, the `app.component.ts` file is central. Let's consider this minimalist setup:
+
+```typescript
+template: `<router-outlet></router-outlet>`,
+styles: []
+```
+
+Nodemon & Concurrency: `nodemon.json`
+
 ```
 {
   "watch": ["api"],
