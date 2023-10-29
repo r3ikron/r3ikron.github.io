@@ -9,35 +9,11 @@ categories: jekyll update
 
 This guide walks you through setting up a Node.js and Angular development environment. We'll also touch upon database setup, configuration, and other essential tasks.
 
-## NPM Configuration
-
-Before starting, it's a good idea to configure npm with your personal information. This will be used to populate the package.json file in your future projects.
-
-```
-npm config set init-author-name "username" -g
-npm config set init-author-url "https://github.com/username" -g
-npm config set init-license "MIT" -g
-```
-
 ## Git Configuration
 
-You'll also want to set up Git with your information and preferred settings.
+[Git Configuration]({% post_url 2022-12-23-configure-node %})
 
-```bash
-git config --global init.defaultBranch main
-git config --global user.email "email"
-git config --global user.name "username"
-```
-
-Once your local project is ready, you can link it with a remote repository as follows:
-
-```bash
-git remote add origin https://github.com/username/REPOSITORY.git
-git branch -M main
-git push -u origin main
-```
-
-Angular CLI Installation
+## Angular CLI Installation
 
 Next, we'll install the Angular CLI, which provides a powerful set of tools for Angular development.
 
@@ -253,20 +229,21 @@ const router = module.exports = Router();
 
 ## Front-end Setup with Angular
 
-First, add the Angular HTTP client module to make HTTP requests.
+Add Angular modules.
 
 ```typescript
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     HttpClientModule,
+    FormsModule,
   ]
 })
 ```
 
 For styles, you can import Bootstrap in your `styles.scss`:
-_styles.scss_
 
 ```scss
 @import '~bootstrap/dist/css/bootstrap.min.css';
