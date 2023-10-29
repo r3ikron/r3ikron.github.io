@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Configure Node.js"
+title:  "Configure Npm and Git"
 date:   2022-12-28 06:35:00 +0200
 categories: jekyll update
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Setting up Node.js and Angular development"
+title:  "Setting up Node.js and Angular"
 date:   2022-12-28 06:44:00 +0200
 categories: jekyll update
 ---
