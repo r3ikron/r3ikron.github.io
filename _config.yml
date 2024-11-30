@@ -1,0 +1,9 @@
+title: Reikron's Devlog
+email: reikron8@gmail.com
+description: >-
+url: "https://r3ikron.github.com/"
+twitter_username: r3ikron
+github_username: r3ikron
+theme: minima
+plugins:
+  - jekyll-feed
