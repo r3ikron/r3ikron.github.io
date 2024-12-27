@@ -28,5 +28,5 @@ title:  "Command-query separation (CQS) Overview"
 
 ### **Notes**
 1. **Error Prevention**: By validating parameters up front, potential issues are identified early, avoiding unnecessary operations.
-2. **Separation of Concerns**: Validation focuses solely on verifying input correctness before proceeding with the main workflow.
-3. **Consistency**: Both commands and queries start with the validation phase to ensure standardized input handling.
+<!-- 2. **Separation of Concerns**: Validation focuses solely on verifying input correctness before proceeding with the main workflow. -->
+2. **Consistency**: Both commands and queries start with the validation phase to ensure standardized input handling.
